@@ -15,9 +15,9 @@ void Options();
 void About();
 int Exit();
 
-string gamever = "ERPG indev v0.01";
-string gamebuild = "I0001";
-string builddate = "2017-07-24";
+string gamever = "ERPG indev v0.02";
+string gamebuild = "I0003";
+string builddate = "2017-07-24 17:50";
 bool isstable = false;
 bool isbeta = true;
 bool isdebug = true;
@@ -29,6 +29,41 @@ void WriteSaveFile(int lvl, int exp)
 	savewrite << " ";
 	savewrite << exp;
 	savewrite.close();
+}
+
+//multiple savegame system will be added later
+void LoadSaveGame(int slot)
+{
+	string filename[] = { "save.sav" };
+	ifstream loadsave("save.sav");
+	int loadedlvl;
+	int loadedexp;
+	string loadedcharacter;
+	string loadedcharactertemp;
+	loadsave >> loadedlvl;
+	loadsave >> loadedexp;
+	loadsave.close();
+	ifstream loadcharacter("chr.chr");
+	while (!loadcharacter.eof())
+	{
+		loadcharacter >> loadedcharactertemp;
+		loadedcharacter.append(loadedcharactertemp);
+		loadedcharacter.append(" ");
+		loadedcharactertemp.erase();
+	}
+	loadcharacter.close();
+	system("cls");
+	cout << "Save Game successfully" << endl;
+	if (isdebug == true)
+	{
+		cout << "*debug* loaded lvl: " << loadedlvl << " loaded exp: " << loadedexp << endl;
+		cout << "*debug* loaded character: " << loadedcharacter << endl;
+	}
+	else
+	{
+		//
+	}
+	gamesequenceactual();
 }
 
 void CreateCharacter()
@@ -64,11 +99,12 @@ void CreateCharacter()
 		system("cls");
 		CreateCharacter();
 	}
-	cout << "Character " << charactertemp << " succesefully created!" << endl;
+	cout << "Character " << charactertemp << " successfully created!" << endl;
 	ofstream writechr("chr.chr");
 	writechr << charactertemp;
 	writechr.close();
 	WriteSaveFile(0, 0);
+	//Add Difficulty selection!
 	gamesequenceactual();
 }
 
@@ -79,7 +115,7 @@ void NewGame()
 
 void LoadGame()
 {
-
+	LoadSaveGame(1);
 }
 
 void Options()
@@ -101,6 +137,30 @@ void ShowMainMenu()
 {
 	system("cls");
 	cout << gamever << endl;
+	if (isbeta == true)
+	{
+		cout << "*The game is in beta state*" << endl;
+	}
+	else 
+	{
+		//
+	}
+	if (isstable == false)
+	{
+		cout << "*The game may be unstable*" << endl;
+	}
+	else
+	{
+		//
+	}
+	if (isdebug == true)
+	{
+		cout << "*The game is running in debug mode!*" << endl;
+	}
+	else
+	{
+		//
+	}
 	cout << "---------------------" << endl;
 	cout << "1) New Game" << endl;
 	cout << "2) Load Game" << endl;
