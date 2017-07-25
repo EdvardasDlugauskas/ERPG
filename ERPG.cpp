@@ -10,12 +10,14 @@
 using namespace std;
 
 
-string gamever = "ERPG Developer preview v0.05";
-string gamebuild = "D1002";
-string builddate = "2017-07-25 14:44";
+//string gamever = "ERPG Developer preview v0.06";
+string gamever = "ERPG indev v0.06";
+string gamebuild = "I0021";
+string builddate = "2017-07-25 23:12";
 bool isstable = false;
 bool isbeta = true;
 bool isdebug = true;
+
 
 class Player
 {
@@ -34,117 +36,100 @@ private:
 class GameLogic
 {
 public:
-	int GeneratedPlayerAttack;
-	int GeneratedEnemyAttack;
-	int GeneratedPreBattleEnemyHP;
-	int GeneratedPreBattleEnemyMana;
-	int InitialPlayerHealth;
-	int InitialPlayerMana;
+
+	string PlayerCharacter;
+	string PlayerCharactersName;
+
+	int playerslvlcurrent;
+	int playersexpcurrent;
+
+	int GeneratedPlayerAttack [8] = { rand() % 40 + 30 , rand() % 50 + 50 , rand() % 40 + 70 , rand() % 40 + 90 , rand() % 50 + 110 , rand() % 60 + 130, 
+		rand() % 50 + 150 , rand() % 60 + 180 };
+
+	int GeneratedEnemyAttack [8] = { rand() % 40 + 20, rand() % 40 + 50 , rand() % 30 + 80 , rand() % 50 + 100 , rand() % 60 + 120 , rand() % 80 + 130,
+		rand() % 30 + 150 , rand() % 100 + 200 };
+
+	int GeneratedPreBattleEnemyHP [8] = { rand() % 300 + 700 , rand() % 300 + 800 , rand() % 490 + 700 , rand() % 200 + 1200 , rand() % 200 + 1300 , rand() % 200 + 1450,
+		rand() % 150 + 1790 , rand() % 300 + 2000 };
+
+	int GeneratedPreBattleEnemyMana [8] = { rand() % 100 + 50 , rand() % 150 + 50 , rand() % 50 + 150 , rand() % 25 + 200 , rand() % 100 + 200 , rand() % 50 + 250,
+		rand() % 100 + 300 , rand() % 100 + 380 };
+
+	int InitialPlayerHealth [8] = { 1000 , 1100 , 1200 , 1300 , 1400 , 1500 , 1750 , 2000 };
+
+	int InitialPlayerMana [8] = { 150 , 175 , 200 , 225 , 250 , 275 , 300 , 400 };
 
 	void GenerateAttack(int PlayerCurrentLvl)
 	{
-		switch (PlayerCurrentLvl)
-		{
-		case 1:
-			GeneratedPlayerAttack = rand() % 40 + 30;
-			GeneratedEnemyAttack = rand() % 40 + 20;
-			break;
-		case 2:
-			GeneratedPlayerAttack = rand() % 50 + 50;
-			GeneratedEnemyAttack = rand() % 40 + 50;
-			break;
-		case 3:
-			GeneratedPlayerAttack = rand() % 40 + 70;
-			GeneratedEnemyAttack = rand() % 30 + 80;
-			break;
-		case 4:
-			GeneratedPlayerAttack = rand() % 40 + 90;
-			GeneratedEnemyAttack = rand() % 50 + 100;
-			break;
-		case 5:
-			GeneratedPlayerAttack = rand() % 50 + 110;
-			GeneratedEnemyAttack = rand() % 60 + 120;
-			break;
-		case 6:
-			GeneratedPlayerAttack = rand() % 60 + 130;
-			GeneratedEnemyAttack = rand() % 80 + 130;
-			break;
-		case 7:
-			GeneratedPlayerAttack = rand() % 50 + 150;
-			GeneratedEnemyAttack = rand() % 40 + 170;
-			break;
-		case 8:
-			GeneratedPlayerAttack = rand() % 60 + 180;
-			GeneratedEnemyAttack = rand() % 100 + 200;
-			break;
-		default:
-			cout << "Game has encountered an error!" << endl;
-			break;
-		}
+
 	}
 
 	void PreBattleGeneration(int PlayerCurrentLvl)
 	{
-		switch (PlayerCurrentLvl)
-		{
-		case 1:
-			GeneratedPreBattleEnemyHP = rand() % 300 + 700;
-			GeneratedPreBattleEnemyMana = rand() % 100 + 50;
-			InitialPlayerHealth = 1000;
-			InitialPlayerMana = 150;
-			break;
-		case 2:
-			GeneratedPreBattleEnemyHP = rand() % 300 + 800;
-			GeneratedPreBattleEnemyMana = rand() % 150 + 50;
-			InitialPlayerHealth = 1100;
-			InitialPlayerMana = 175;
-			break;
-		case 3:
-			GeneratedPreBattleEnemyHP = rand() % 490 + 700;
-			GeneratedPreBattleEnemyMana = rand() % 50 + 150;
-			InitialPlayerHealth = 1200;
-			InitialPlayerMana = 200;
-			break;
-		case 4:
-			GeneratedPreBattleEnemyHP = rand() % 200 + 1200;
-			GeneratedPreBattleEnemyMana = rand() % 25 + 200;
-			InitialPlayerHealth = 1300;
-			InitialPlayerMana = 225;
-			break;
-		case 5:
-			GeneratedPreBattleEnemyHP = rand() % 200 + 1300;
-			GeneratedPreBattleEnemyMana = rand() % 100 + 200;
-			InitialPlayerHealth = 1400;
-			InitialPlayerMana = 250;
-			break;
-		case 6:
-			GeneratedPreBattleEnemyHP = rand() % 200 + 1450;
-			GeneratedPreBattleEnemyMana = rand() % 50 + 250;
-			InitialPlayerHealth = 1500;
-			InitialPlayerMana = 275;
-			break;
-		case 7:
-			GeneratedPreBattleEnemyHP = rand() % 150 + 1790;
-			GeneratedPreBattleEnemyMana = rand() % 100 + 300;
-			InitialPlayerHealth = 1750;
-			InitialPlayerMana = 300;
-			break;
-		case 8:
-			GeneratedPreBattleEnemyHP = rand() % 300 + 2000;
-			GeneratedPreBattleEnemyMana = rand() % 100 + 380;
-			InitialPlayerHealth = 2000;
-			InitialPlayerMana = 400;
-			break;
-		}
+
 	}
 };
 
 class GameBattleScreen
 {
-public:
-	void GenerateBattle()
-	{
 
+public:
+
+	int PlayerHpAfterUpdate;
+	int PlayersManaAfterUpdate;
+	int EnemysHpAfterUpdate;
+	int EnemysManaAfterUpdate;
+
+	int ExitIfError(int status)
+	{
+		return status;
+	}
+
+	void GenerateBattle(int StartingEnemysHealth, int StartingEnemysMana)
+	{
+		system("cls");
+		GameLogic GL;
+		cout << "Battle: " << GL.PlayerCharactersName << "( "<<GL.PlayerCharacter<<" ) "<<GL.playerslvlcurrent<<" lvl "<<GL.playersexpcurrent<<" exp"<< endl;
+		cout << "Opponent: Opponent" << GL.playerslvlcurrent << " lvl" << endl;
+		cout << "=====================================" << endl;
+		cout << GL.PlayerCharactersName << endl;
+		cout << "-------------------------------------" << endl;
+		cout << GL.PlayerCharactersName << "'s Health: " <<PlayerHpAfterUpdate<<" / "<< GL.InitialPlayerHealth << endl;
+		cout << GL.PlayerCharactersName << "'s Mana: " << PlayersManaAfterUpdate << " / " << GL.InitialPlayerMana << endl;
+		cout << "=====================================" << endl;
+		cout << "Enemy's Health: " << EnemysHpAfterUpdate << " / " << StartingEnemysHealth << endl;
+		cout << "Enemy's Mana: " << EnemysManaAfterUpdate << " / " << StartingEnemysMana << endl;
+		cout << "=====================================" << endl;
+		Sleep(1000);
+		int TakenDagameFromPlayer = GL.GeneratedPlayerAttack[GL.playerslvlcurrent];
+		int TakenDamageFromEnemy = GL.GeneratedEnemyAttack[GL.playerslvlcurrent];
+		cout << GL.PlayerCharactersName << "( " << GL.PlayerCharacter << " ) " << " did " << TakenDagameFromPlayer << " damage!" << endl;
+		PlayerHpAfterUpdate = PlayerHpAfterUpdate - TakenDamageFromEnemy;
+		EnemysHpAfterUpdate = EnemysHpAfterUpdate - TakenDagameFromPlayer;
+		Sleep(1000);
+		cout << "Opponent: Opponent did: " << TakenDamageFromEnemy << " damage!" << endl;
+		Sleep(1000);
+		if ((PlayerHpAfterUpdate < 1) || (EnemysHpAfterUpdate < 1))
+		{
+			cout << "*debug* Game ended, im too tired to complete the section that decides who wins :DD" << endl;
+			system("pause");
+			ExitIfError(0);
+		}
+		else
+		{
+			GenerateBattle(StartingEnemysHealth, StartingEnemysMana);
+		}
+	}
+
+	void PrepareBattle()
+	{
+		GameLogic GetEnemysStats;
+		int StartingEnemysHealth = GetEnemysStats.GeneratedPreBattleEnemyHP[GetEnemysStats.playerslvlcurrent];
+		int StartingEnemysMana = GetEnemysStats.GeneratedPreBattleEnemyMana[GetEnemysStats.playerslvlcurrent];
+		system("cls");
+		cout << "Loading..." << endl;
+		Sleep(1500);
+		GenerateBattle(StartingEnemysHealth, StartingEnemysMana);
 	}
 };
 
@@ -162,8 +147,11 @@ public:
 		savewrite << exp;
 		savewrite.close();
 		Player WritePlayerStats;
+		GameLogic GL3;
 		WritePlayerStats.CurrentPlayerLvl = lvl;
 		WritePlayerStats.CurrentPlayerXp = exp;
+		GL3.playersexpcurrent = exp;
+		GL3.playerslvlcurrent = lvl;
 		if (isdebug == true)
 		{
 			cout << "*debug* WritePlayerStats.CurrentPlayerLvl = " << WritePlayerStats.CurrentPlayerLvl << endl;
@@ -197,25 +185,45 @@ public:
 			loadedcharacter.append(" ");
 			loadedcharactertemp.erase();
 		}
+		string loadedcharactersname;
+		string loadedchartemp;
 		loadcharacter.close();
+		ifstream loadcharname("charname.nam");
+		while (!loadcharname.eof())
+		{
+			loadcharname >> loadedchartemp;
+			loadedcharactersname.append(loadedchartemp);
+			loadedcharactersname.append(" ");
+			loadedchartemp.erase();
+		}
+		loadcharname.close();
 		Player WritePlayerStats;
 		WritePlayerStats.CurrentPlayerLvl = loadedlvl;
 		WritePlayerStats.CurrentPlayerXp = loadedexp;
+		GameLogic GL2;
+		GL2.playersexpcurrent = loadedexp;
+		GL2.playerslvlcurrent = loadedlvl;
+		GL2.PlayerCharacter = loadedcharacter;
+		GL2.PlayerCharactersName = loadedcharactersname;
 		system("cls");
 		cout << "Save Game successfully" << endl;
 		if (isdebug == true)
 		{
-			cout << "*debug* loaded lvl: " << loadedlvl << " loaded exp: " << loadedexp << endl;
-			cout << "*debug* loaded character: " << loadedcharacter << endl;
+			cout << "*debug* loaded lvl: " << GL2.playerslvlcurrent << " loaded exp: " << GL2.playersexpcurrent << endl;
+			cout << "*debug* loaded character: " << GL2.PlayerCharacter << endl;
+			cout << "*debug* loaded characters name: " << GL2.PlayerCharactersName << endl;
 		}
 		else
 		{
 			//
 		}
+		GameBattleScreen GB;
+		GB.PrepareBattle();
 	}
 
 	void CreateCharacter()
 	{
+		GameLogic GL1;
 		system("cls");
 		cout << "Select Character!" << endl;
 		cout << "-------------------------" << endl;
@@ -248,10 +256,21 @@ public:
 			CreateCharacter();
 		}
 		cout << "Character " << charactertemp << " successfully created!" << endl;
+		cout << "" << endl;
+		cout << "Create name for your character: ";
+		string inputname;
+		getline(cin, inputname);
+		GL1.PlayerCharactersName = inputname;
+		GL1.PlayerCharacter = charactertemp;
 		ofstream writechr("chr.chr");
 		writechr << charactertemp;
 		writechr.close();
+		ofstream charnamewrite("charname.nam");
+		charnamewrite << inputname;
+		charnamewrite.close();
 		WriteSaveFile(0, 0);
+		GameBattleScreen GB;
+		GB.PrepareBattle();
 		//Add Difficulty selection!
 	}
 
@@ -275,7 +294,7 @@ public:
 
 	}
 
-	int Exit()
+	int ExitGame()
 	{
 		return 0;
 	}
@@ -332,7 +351,7 @@ public:
 			About();
 			break;
 		case 5:
-			Exit();
+			ExitGame();
 			break;
 		default:
 			cout << "Wrong key entered, try again!" << endl;
