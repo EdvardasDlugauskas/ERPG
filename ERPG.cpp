@@ -4,13 +4,15 @@
 #include "stdio.h"
 #include <iostream>
 #include <string>
+#include "stdlib.h"
+#include "time.h"
 
 using namespace std;
 
 
-string gamever = "ERPG indev v0.03";
-string gamebuild = "I0007";
-string builddate = "2017-07-25 13:32";
+string gamever = "ERPG indev v0.05";
+string gamebuild = "I0013";
+string builddate = "2017-07-25 14:42";
 bool isstable = false;
 bool isbeta = true;
 bool isdebug = true;
@@ -18,12 +20,129 @@ bool isdebug = true;
 class Player
 {
 public:
-	void PlayerStats()
+		int CurrentPlayerLvl;
+		int CurrentPlayerXp;
+
+private:
+	void Debug()
 	{
 
 	}
-private:
-	void Debug()
+};
+
+
+class GameLogic
+{
+public:
+	int GeneratedPlayerAttack;
+	int GeneratedEnemyAttack;
+	int GeneratedPreBattleEnemyHP;
+	int GeneratedPreBattleEnemyMana;
+	int InitialPlayerHealth;
+	int InitialPlayerMana;
+
+	void GenerateAttack(int PlayerCurrentLvl)
+	{
+		switch (PlayerCurrentLvl)
+		{
+		case 1:
+			GeneratedPlayerAttack = rand() % 40 + 30;
+			GeneratedEnemyAttack = rand() % 40 + 20;
+			break;
+		case 2:
+			GeneratedPlayerAttack = rand() % 50 + 50;
+			GeneratedEnemyAttack = rand() % 40 + 50;
+			break;
+		case 3:
+			GeneratedPlayerAttack = rand() % 40 + 70;
+			GeneratedEnemyAttack = rand() % 30 + 80;
+			break;
+		case 4:
+			GeneratedPlayerAttack = rand() % 40 + 90;
+			GeneratedEnemyAttack = rand() % 50 + 100;
+			break;
+		case 5:
+			GeneratedPlayerAttack = rand() % 50 + 110;
+			GeneratedEnemyAttack = rand() % 60 + 120;
+			break;
+		case 6:
+			GeneratedPlayerAttack = rand() % 60 + 130;
+			GeneratedEnemyAttack = rand() % 80 + 130;
+			break;
+		case 7:
+			GeneratedPlayerAttack = rand() % 50 + 150;
+			GeneratedEnemyAttack = rand() % 40 + 170;
+			break;
+		case 8:
+			GeneratedPlayerAttack = rand() % 60 + 180;
+			GeneratedEnemyAttack = rand() % 100 + 200;
+			break;
+		default:
+			cout << "Game has encountered an error!" << endl;
+			break;
+		}
+	}
+
+	void PreBattleGeneration(int PlayerCurrentLvl)
+	{
+		switch (PlayerCurrentLvl)
+		{
+		case 1:
+			GeneratedPreBattleEnemyHP = rand() % 300 + 700;
+			GeneratedPreBattleEnemyMana = rand() % 100 + 50;
+			InitialPlayerHealth = 1000;
+			InitialPlayerMana = 150;
+			break;
+		case 2:
+			GeneratedPreBattleEnemyHP = rand() % 300 + 800;
+			GeneratedPreBattleEnemyMana = rand() % 150 + 50;
+			InitialPlayerHealth = 1100;
+			InitialPlayerMana = 175;
+			break;
+		case 3:
+			GeneratedPreBattleEnemyHP = rand() % 490 + 700;
+			GeneratedPreBattleEnemyMana = rand() % 50 + 150;
+			InitialPlayerHealth = 1200;
+			InitialPlayerMana = 200;
+			break;
+		case 4:
+			GeneratedPreBattleEnemyHP = rand() % 200 + 1200;
+			GeneratedPreBattleEnemyMana = rand() % 25 + 200;
+			InitialPlayerHealth = 1300;
+			InitialPlayerMana = 225;
+			break;
+		case 5:
+			GeneratedPreBattleEnemyHP = rand() % 200 + 1300;
+			GeneratedPreBattleEnemyMana = rand() % 100 + 200;
+			InitialPlayerHealth = 1400;
+			InitialPlayerMana = 250;
+			break;
+		case 6:
+			GeneratedPreBattleEnemyHP = rand() % 200 + 1450;
+			GeneratedPreBattleEnemyMana = rand() % 50 + 250;
+			InitialPlayerHealth = 1500;
+			InitialPlayerMana = 275;
+			break;
+		case 7:
+			GeneratedPreBattleEnemyHP = rand() % 150 + 1790;
+			GeneratedPreBattleEnemyMana = rand() % 100 + 300;
+			InitialPlayerHealth = 1750;
+			InitialPlayerMana = 300;
+			break;
+		case 8:
+			GeneratedPreBattleEnemyHP = rand() % 300 + 2000;
+			GeneratedPreBattleEnemyMana = rand() % 100 + 380;
+			InitialPlayerHealth = 2000;
+			InitialPlayerMana = 400;
+			break;
+		}
+	}
+};
+
+class GameBattleScreen
+{
+public:
+	void GenerateBattle()
 	{
 
 	}
@@ -42,6 +161,20 @@ public:
 		savewrite << " ";
 		savewrite << exp;
 		savewrite.close();
+		Player WritePlayerStats;
+		WritePlayerStats.CurrentPlayerLvl = lvl;
+		WritePlayerStats.CurrentPlayerXp = exp;
+		if (isdebug == true)
+		{
+			cout << "*debug* WritePlayerStats.CurrentPlayerLvl = " << WritePlayerStats.CurrentPlayerLvl << endl;
+			cout << "*debug* WritePlayerStats.CurrentPlayerXp = " << WritePlayerStats.CurrentPlayerXp << endl;
+			system("pause");
+		}
+		else
+		{
+			//
+		}
+
 	}
 
 	//multiple savegame system will be added later
@@ -65,6 +198,9 @@ public:
 			loadedcharactertemp.erase();
 		}
 		loadcharacter.close();
+		Player WritePlayerStats;
+		WritePlayerStats.CurrentPlayerLvl = loadedlvl;
+		WritePlayerStats.CurrentPlayerXp = loadedexp;
 		system("cls");
 		cout << "Save Game successfully" << endl;
 		if (isdebug == true)
