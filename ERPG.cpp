@@ -10,9 +10,9 @@
 using namespace std;
 
 
-string gamever = "ERPG indev v0.05";
-string gamebuild = "I0013";
-string builddate = "2017-07-25 14:42";
+string gamever = "ERPG Developer preview v0.05";
+string gamebuild = "D1002";
+string builddate = "2017-07-25 14:44";
 bool isstable = false;
 bool isbeta = true;
 bool isdebug = true;
