@@ -37,11 +37,11 @@ class GameLogic
 {
 public:
 
-	string PlayerCharacter;
-	string PlayerCharactersName;
+	string PlayerCharacter = "Player1";
+	string PlayerCharactersName = "Enemy1";
 
-	int playerslvlcurrent;
-	int playersexpcurrent;
+	int playerslvlcurrent = 0;
+	int playersexpcurrent = 0;
 
 	int GeneratedPlayerAttack [8] = { rand() % 40 + 30 , rand() % 50 + 50 , rand() % 40 + 70 , rand() % 40 + 90 , rand() % 50 + 110 , rand() % 60 + 130, 
 		rand() % 50 + 150 , rand() % 60 + 180 };
@@ -271,7 +271,7 @@ public:
 		WriteSaveFile(0, 0);
 		GameBattleScreen GB;
 		GB.PrepareBattle();
-		//Add Difficulty selection!
+		//TODO: Add Difficulty selection!
 	}
 
 	void NewGame()
